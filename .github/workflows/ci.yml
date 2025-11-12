@@ -32,15 +32,15 @@ jobs:
 
       - name: Smoke Test Container
         run: |
-          docker run -d -p 8080:8080 --name demo-app ghcr.io/${{ github.repository_owner }}/demo-feign-ghcr:latest
+          docker run -d -p 8088:8088 --name demo-app ghcr.io/${{ github.repository_owner }}/demo-feign-ghcr:latest
           for i in {1..30}; do
-            if curl -s http://localhost:8080/actuator/health | grep -q UP; then
+            if curl -s http://localhost:8088/actuator/health | grep -q UP; then
               echo "Application is healthy"
               break
             fi
             sleep 2
           done
-          if ! curl -s http://localhost:8080/actuator/health | grep -q UP; then
+          if ! curl -s http://localhost:8088/actuator/health | grep -q UP; then
             docker logs demo-app
             exit 1
           fi
@@ -68,4 +68,4 @@ jobs:
             docker pull ghcr.io/${{ github.repository_owner }}/demo-feign-ghcr:latest
             docker stop demo-app || true
             docker rm demo-app || true
-            docker run -d -p 8080:8080 --name demo-app ghcr.io/${{ github.repository_owner }}/demo-feign-ghcr:latest
+            docker run -d -p 8088:8088 --name demo-app ghcr.io/${{ github.repository_owner }}/demo-feign-ghcr:latest
