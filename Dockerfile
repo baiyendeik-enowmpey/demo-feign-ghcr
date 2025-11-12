@@ -6,6 +6,6 @@ RUN mvn -B -DskipTests clean package
 
 FROM eclipse-temurin:17-jre
 WORKDIR /app
-COPY --from=build /app/target/demo-feign-ghcr-1.0.0.jar app.jar
+COPY --from=build /app/target/demo-feign-advanced-1.0.0.jar app.jar
 EXPOSE 8088
 ENTRYPOINT ["java","-jar","/app/app.jar"]
